@@ -34,13 +34,16 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             viewModel.comments.collect { it ->
                 when (it.status) {
+                    //show loading progress bar
                     Status.LOADING -> {
                         binding.progressbarLoading.visibility = View.VISIBLE
                     }
+                    //show comment data
                     Status.SUCCESS -> {
                         binding.progressbarLoading.visibility = View.GONE
                         binding.tvComment.text = it.data?.body
                     }
+                    //show error message
                     Status.ERROR -> {
                         binding.progressbarLoading.visibility = View.GONE
                         binding.tvComment.text = it.message
